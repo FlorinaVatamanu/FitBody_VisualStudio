@@ -1,0 +1,64 @@
+<link rel="stylesheet" href="https://unpkg.com/primeflex@3.1.2/primeflex.css">
+
+<div class="h-screen w-full">
+  <div class="bg-image bg-center bg-no-repeat bg-cover h-full">
+    <div class="flex flex-column w-full align-items-center h-full text-white font-italic top-margin">
+      <span class="pb-8 text-8xl">What's in your food?</span>
+      <span class="text-5xl">Learn about calorie count, nutrition information and serving size.</span>
+      <button pButton type="button" label="Start Chatting" routerLink="/login"
+              class="p-button-secondary w-17rem mt-8 text-white font-italic text-xl"></button>
+    </div>
+  </div>
+  <h2 class="text-center py-8 text-5xl font-italic font-light text-black-alpha-60">
+    Get nutritionist-approved
+    recipes!
+  </h2>
+  <div class="bg-white h-screen flex justify-content-center">
+    <div class="flex flex-column">
+      <div class="flex">
+        <div class="card shadow-5 mr-5">
+          <div class="card-one bg-center bg-no-repeat bg-cover h-20rem">
+            <button pButton type="button" label="Love Salad"
+                    class="label p-button-secondary w-10rem text-white font-italic text-xl"></button>
+            <div class="cards__item__text flex justify-content-center font-italic font-light text-black-alpha-80">
+              Discover a world of salads!
+            </div>
+          </div>
+
+        </div>
+        <div class="card shadow-5">
+          <div class="card-two bg-center bg-no-repeat bg-cover h-20rem">
+            <button pButton type="button" label="Breakfast"
+                    class="label p-button-secondary w-10rem text-white font-italic text-xl"></button>
+            <div class="cards__item__text flex justify-content-center font-italic font-light text-black-alpha-80">
+              Healthy Meal Prep Breakfast Recipes!
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex pt-5">
+        <div class="card shadow-5 mr-5">
+          <div class="card-three bg-center bg-no-repeat bg-cover h-20rem">
+            <button pButton type="button" label="Fresh Smoothies"
+                    class="label p-button-secondary w-12rem text-white font-italic text-xl"></button>
+            <div class="cards__item__text flex justify-content-center font-italic font-light text-black-alpha-80">
+              Enjoy
+              your favorite fruits and veggies!
+            </div>
+          </div>
+        </div>
+        <div class="card shadow-5">
+          <div class="card-four bg-center bg-no-repeat bg-cover h-20rem">
+            <button pButton type="button" label="Meat Lovers"
+                    class="label p-button-secondary w-12rem text-white font-italic text-xl"></button>
+            <div class="cards__item__text flex justify-content-center font-italic font-light text-black-alpha-80">
+              Healthy High Protein Meals!
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+  <app-footer></app-footer>
+</div>
