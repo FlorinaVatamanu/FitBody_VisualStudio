@@ -1,0 +1,113 @@
+<link rel="stylesheet" href="https://unpkg.com/primeflex@3.1.2/primeflex.css">
+
+<div class="flex align-items-center bg-white h-5rem">
+  <div class="flex justify-content-between w-full">
+    <section class="flex align-items-center pl-5">
+      <img src="assets/images/logo4.png" class="w-4rem" alt="no-picture" />
+      <span class="text-gray-500 text-5xl font-italic">FitBody   </span>
+    </section>
+
+    <section>
+      <button mat-raised-button routerLink="/login">
+        <mat-icon>login</mat-icon>
+        <span>Login</span>
+      </button>
+      <button mat-raised-button routerLink="/signup">
+        <mat-icon>person_add</mat-icon>
+        <span>Sign up</span>
+      </button>
+      <button mat-raised-button routerLink="/forgot-pass">
+        <mat-icon>help_outline</mat-icon>
+        <span>Forgot password</span>
+      </button>
+      <button mat-raised-button routerLink="/verify-email">
+        <mat-icon>help_outline</mat-icon>
+        <span>Resend email verification</span>
+      </button>
+      <button mat-raised-button routerLink="/dashboard">
+        <mat-icon>dashboard</mat-icon>
+        <span>Dashboard</span>
+      </button>
+      <button mat-raised-button routerLink="/adminboard">
+        <mat-icon>admin_panel_settings</mat-icon>
+        <span>Admin Dashboard</span>
+      </button>
+    </section>
+
+    <section>
+      <ng-container *ngIf="user$ | async as user; else loginButton">
+        <button mat-button [matMenuTriggerFor]="userMenu">
+          <img width="30"
+               height="30"
+               class="profile-image-toolbar"
+               [src]="user.photoURL ?? 'assets/images/image-placeholder.png'" />
+          {{ user.displayName }}
+          <mat-icon>expand_more</mat-icon>
+        </button>
+      </ng-container>
+
+      <ng-template #loginButton>
+        <button mat-button routerLink="login">
+          <mat-icon>login</mat-icon>
+          Login
+        </button>
+      </ng-template>
+    </section>
+  </div>
+</div>
+
+<!--<mat-toolbar color="primary">
+
+  <img width="90"
+       height="70"
+       src="assets/images/logo4.png" />
+  <span class="gap">FitBody</span>
+
+
+
+  <ng-container *ngIf="user$ | async as user; else loginButton">
+    <button mat-button [matMenuTriggerFor]="userMenu">
+      <img width="30"
+           height="30"
+           class="profile-image-toolbar"
+           [src]="user.photoURL ?? 'assets/images/image-placeholder.png'" />
+      {{ user.displayName }}
+      <mat-icon>expand_more</mat-icon>
+    </button>
+  </ng-container>
+
+  <ng-template #loginButton>
+    <button mat-button routerLink="login">
+      <mat-icon>login</mat-icon>
+      Login
+    </button>
+  </ng-template>
+</mat-toolbar>-->
+
+
+<div class="content">
+  <router-outlet></router-outlet>
+</div>
+
+<mat-menu #userMenu="matMenu">
+  <button mat-menu-item routerLink="/profile">
+    <mat-icon>account_circle</mat-icon>
+    Profile
+  </button>
+  <button mat-menu-item routerLink="/dashboard">
+    <mat-icon>dashboard</mat-icon>
+    Dashboard
+  </button>
+  <button mat-menu-item routerLink="/tracker">
+    <mat-icon>restaurant</mat-icon>
+    Food Tracker
+  </button>
+  <button mat-menu-item routerLink="/bmr">
+    <mat-icon>fitness_center</mat-icon>
+    BMR Calculator
+  </button>
+  <button mat-menu-item (click)="logout()">
+    <mat-icon>logout</mat-icon>
+    Logout
+  </button>
+</mat-menu>
