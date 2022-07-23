@@ -5,9 +5,14 @@ import { MealPlanService } from 'src/app/services/mealplan.service';
 
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
+
+import { Observable } from 'rxjs';
+import { UsersService } from 'src/app/services/users.service';
 
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable'
+import { UserProfile } from '@angular/fire/auth';
 
 
 @Component({
@@ -18,7 +23,9 @@ import autoTable from 'jspdf-autotable'
 export class AdminboardComponent implements OnInit {
 
   @ViewChild('htmlData') htmlData!: ElementRef;
-
+  user: Observable<any> | undefined;
+  //userProfile: Observable<UserProfile> | undefined;
+  email: string | null;
   mealPlansList: MealPlan[] = [];
 
   mealObj: MealPlan = {
@@ -49,9 +56,18 @@ export class AdminboardComponent implements OnInit {
   carbohydrates: string = '';
   fats: string = '';
 
-  constructor(private auth: AuthenticationService, private data: MealPlanService, private afAuth: AngularFireAuth) { }
+  constructor(private auth: AuthenticationService, private data: MealPlanService, public afAuth: AngularFireAuth, private firestore: AngularFirestore, private usersService: UsersService) {
+    this.email = '';
+  }
 
   ngOnInit(): void {
+    this.afAuth.authState.subscribe(user => {                                                   // grab the user object from Firebase Authorization
+      if (user && user.email) {
+        let emailLower = user.email.toLowerCase();
+        this.user = this.firestore.collection('users').doc(emailLower).valueChanges();      // get the user's doc in Cloud Firestore
+        this.email = user.email;
+      }
+    });
     this.getAllMeals();
   }
 

@@ -40,6 +40,7 @@ export class SignUpComponent implements OnInit {
       email: new FormControl('', [Validators.email, Validators.required]),
       password: new FormControl('', Validators.required),
       confirmPassword: new FormControl('', Validators.required),
+      role: new FormControl('', Validators.required),
     },
     { validators: passwordsMatchValidator() }
   );
@@ -49,9 +50,9 @@ export class SignUpComponent implements OnInit {
     private toast: HotToastService,
     private router: Router,
     private usersService: UsersService
-  ) {}
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   get name() {
     return this.signUpForm.get('name');
@@ -69,15 +70,19 @@ export class SignUpComponent implements OnInit {
     return this.signUpForm.get('confirmPassword');
   }
 
+  get role() {
+    return this.signUpForm.get('role');
+  }
+
   submit() {
     if (!this.signUpForm.valid) return;
 
-    const { name, email, password } = this.signUpForm.value;
+    const { name, email, password, role } = this.signUpForm.value;
     this.authService
       .signUp(email, password)
       .pipe(
         switchMap(({ user: { uid } }) =>
-          this.usersService.addUser({ uid, email, displayName: name })
+          this.usersService.addUser({ uid, email, password, displayName: name, role })
         ),
         this.toast.observe({
           success: 'Congrats! You are all signed up',
@@ -86,7 +91,7 @@ export class SignUpComponent implements OnInit {
         })
       )
       .subscribe(() => {
-        this.router.navigate(['/home']);
+        this.router.navigate(['/dashboard']);
       });
   }
 }

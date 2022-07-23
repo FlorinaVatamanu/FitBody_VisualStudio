@@ -217,12 +217,17 @@ export class TrackerComponent implements OnInit {
   piechartD: any;
   piechartL: any;
   piechartS: any;
+  emailV: string | null;
 
-  constructor(private auth: AuthenticationService, private data: DataService, private afAuth: AngularFireAuth) { }
+  constructor(private auth: AuthenticationService, private data: DataService, public afAuth: AngularFireAuth) { this.emailV = ''; }
 
   ngOnInit(): void {
+    this.afAuth.authState.subscribe(user => {               // if the user is logged in, update the form value with their email address
+      if (user) {
+        this.emailV = user.email;
+      }
+    });
     this.getAllFoods();
-
     this.getAllBreakfasts();
     this.getAllLunch();
     this.getAllDinner();

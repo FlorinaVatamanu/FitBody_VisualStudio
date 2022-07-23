@@ -1,0 +1,73 @@
+<!--<body>
+  <mat-card *ngIf="!(afAuth.user | async)">
+    <mat-icon>do_not_disturb</mat-icon>
+    <span>User is not logged in -- the user needs to be logged in to resend the verification email</span>
+  </mat-card>
+
+  <div class="form-container mat-elevation-z5" layout-align="center center">
+
+      <p>A verification email will be sent to <span><b>{{ email }}</b></span>.</p>
+
+      <div *ngIf="firebaseErrorMessage != ''" class="error-style">
+        <span>{{ firebaseErrorMessage }}</span>
+      </div>
+
+      <section>
+        <div class="example-button-row">
+          <button mat-raised-button color="primary" [disabled]="mailSent" (click)="resendVerificationEmail()">Resend verification email</button>
+          <div *ngIf="mailSent">
+            <p><b>An email has been sent!</b></p>
+
+            <button mat-raised-button color="primary" routerLink="/home">
+              <mat-icon>home</mat-icon>
+              <span>Return Home</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+    <div class="progressIndicator" [style.display]="isProgressVisible ? 'inline' : 'none' ">
+      <mat-progress-spinner class="example-margin" mode="indeterminate"></mat-progress-spinner>
+    </div>
+  </div>
+</body>
+  -->
+
+<body class="verify-email-body">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <mat-card *ngIf="!(afAuth.user | async)">
+    <mat-icon>do_not_disturb</mat-icon>
+    <span>User is not logged in -- the user needs to be logged in to resend the verification email</span>
+  </mat-card>
+
+  <div class="container">
+
+    <p>A verification email will be sent to <span><b>{{ email }}</b></span>.</p>
+
+    <div *ngIf="firebaseErrorMessage != ''" class="error-style">
+      <span>{{ firebaseErrorMessage }}</span>
+    </div>
+
+    <button mat-raised-button [disabled]="mailSent" (click)="resendVerificationEmail()">Resend verification email</button>
+    <div *ngIf="mailSent">
+      <p><b>An email has been sent!</b></p>
+      <button mat-raised-button routerLink="/home">
+        <mat-icon>home</mat-icon>
+        <span>Return Home</span>
+      </button>
+    </div>
+
+    <div class="progressIndicator" [style.display]="isProgressVisible ? 'inline' : 'none' ">
+      <mat-progress-spinner class="example-margin" mode="indeterminate"></mat-progress-spinner>
+    </div>
+
+    <div class="drops">
+      <div class="drop drop-1"></div>
+      <div class="drop drop-2"></div>
+      <div class="drop drop-3"></div>
+    </div>
+  </div>
+</body>
+

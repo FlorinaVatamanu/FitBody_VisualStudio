@@ -1,0 +1,173 @@
+<div class="flex">
+  <div class="container">
+    <div class="bg-image">
+      <div class="form-floating mb-1 text-center">
+        <br><br><br>
+        <b><span class="text-black-500 text-3xl font-italic">BMR & Daily Calorie Calculator</span></b><br>
+      </div>
+
+      <form>
+        <fieldset>
+
+          <legend><span class="text-black-500 text-2xl font-italic">Select Gender</span></legend>
+          <div class="field field-medium">
+            <select name="gender" [(ngModel)]="gender">
+              <option value="Female">Female</option>
+              <option value="Male">Male</option>
+
+            </select>
+
+          </div>
+        </fieldset>
+        <br>
+        <fieldset>
+          <legend><span class="text-black-500 text-2xl font-italic">Weight in kg</span></legend>
+          <div class="input-group"><input type="text" name="WEIGHT" placeholder="60 kg" [(ngModel)]="weight"></div>
+        </fieldset>
+        <br>
+        <fieldset>
+          <legend><span class="text-black-500 text-2xl font-italic">Height in cm</span></legend>
+          <div class="input-group"><input type="text" name="HEIGHT" placeholder="170 cm" [(ngModel)]="height"></div>
+
+        </fieldset>
+        <br>
+        <fieldset>
+          <legend><span class="text-black-500 text-2xl font-italic">Age in years</span></legend>
+          <div class="input-group"><input type="text" name="age" placeholder="22y" [(ngModel)]="age"></div>
+        </fieldset>
+        <br>
+
+        <div>
+          <!--<button class="button button--full" type="submit">Calculate BMR</button>-->
+          <button mat-raised-button (click)="calculateBMR()">
+            <span class="material-icons">restaurant</span>
+            <span>Calculate BMR</span>
+
+          </button>
+          <input type="text" name="kcals" placeholder="kcal~maintainance" [(ngModel)]="kcals">
+        </div>
+        <br>
+        <fieldset>
+          <legend><span class="text-black-500 text-2xl font-italic">Workout in a Week</span></legend>
+
+          <select placeholder="Select activity level" name="subject" id="subject_input" required
+                  [(ngModel)]="activity_level">
+            <option disabled hidden selected>Select activity level</option>
+            <option value="1.2">
+              Sedentary (Very little or no exercise)
+            </option>
+            <option value="1.375">
+              Lightly Active (Light exercise 1 to 3 days/week)
+            </option>
+            <option value="1.55">
+              Moderately Active (Moderate exercise 3 to 5 days/week)
+            </option>
+            <option value="1.725">
+              Very Active (Heavy exercise 6 to 7 days/week)
+            </option>
+            <option value="1.9">
+              Extremely Active (Very intense)
+            </option>
+          </select>
+
+        </fieldset>
+        <br>
+
+        <div>
+          <!--<button class="button button--full" type="submit">Calculate Calories</button>-->
+          <button mat-raised-button (click)="calculateActivityLevel()">
+            <!-- (click)="resetFormular()">-->
+            <span class="material-icons">restaurant</span>
+            <span>Calculate Calories</span>
+          </button>
+          <input type="text" name="active" placeholder="kcal~active lifestyle" [(ngModel)]="active">
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="calc-outer-wrap">
+    <div id="form-error" style="display:none;"></div>
+    <div class="form-floating mb-1 text-center">
+      <br>
+      <b><span class="text-black-500 text-3xl font-italic"><span class="material-icons">restaurant</span>Your Nutritional Needs</span></b><br><br>
+
+    </div>
+
+    <form>
+      <fieldset>
+        <legend><span class="text-black-500 text-2xl font-italic">Your daily caloric need: </span></legend>
+        <br>
+        <input type="text" name="kcals" placeholder="kcal~maintainance" [(ngModel)]="kcals">
+      </fieldset>
+
+      <br><br>
+
+      <div>
+        <button mat-raised-button (click)="calculateCarbs()" (click)="calculateFats()" (click)="calculateProteins()" (click)="doSomething()"
+                (click)="draw()" (click)="drawKcals()">
+          <span class="material-icons">calculate</span>
+          <span>Calculate Macronutrients</span>
+        </button>
+      </div>
+      <div class="flex">
+        <div class="field">
+          <br>
+          <input type="submit" name="carbohydrates" [(ngModel)]="carbohydrates">
+          <span class="text-white-200 text-0.6xl font-italic">Grams ~ Carbohydrates</span>
+          <!-- ~ 45–65% of your daily calories(50%)-->
+        </div>
+        <div class="field">
+          <br>
+          <input type="submit" name="carbsK" [(ngModel)]="carbsK">
+          <span class="text-white-200 text-0.6xl font-italic">Kcals ~ Carbohydrates</span>
+        </div>
+      </div>
+
+      <div class="flex">
+        <div class="field">
+          <br>
+          <input type="submit" name="fats" [(ngModel)]="fats">
+          <span class="text-white-200 text-0.3xl font-italic">Grams ~ Fats</span>
+          <!-- ~ 20–35% of your daily calories(30%)-->
+        </div>
+        <div class="field">
+          <br>
+          <input type="submit" name="fatsK" [(ngModel)]="fatsK">
+          <span class="text-white-200 text-0.6xl font-italic">Kcals ~ Fats</span>
+        </div>
+      </div>
+
+      <div class="flex">
+        <div class="field">
+          <br>
+          <input type="submit" name="proteins" [(ngModel)]="proteins">
+          <span class="text-white-200 text-0.6xl font-italic">Grams ~ Proteins</span>
+          <!--  ~ 22–35% of your daily calories(20%)-->
+        </div>
+        <div class="field">
+          <br>
+          <input type="submit" name="proteinsK" [(ngModel)]="proteinsK">
+          <span class="text-white-200 text-0.6xl font-italic">Kcals ~ Proteins</span>
+        </div>
+      </div>
+
+    </form>
+    <br>
+    <div class="flex">
+      <div class="pie">
+        <p-chart type="doughnut" [data]="piechart" [style]="{'width': '30%'}"></p-chart>
+      </div>
+      <div class="pie">
+        <p-chart type="doughnut" [data]="piechartK" [style]="{'width': '30%'}"></p-chart>
+      </div>
+    </div>
+    <div id="results" style="display:none;"></div>
+  </div>
+</div>
+
+
+<br>
+<br>
+<br>
+<app-footer></app-footer>

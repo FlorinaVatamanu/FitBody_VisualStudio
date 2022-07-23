@@ -9,6 +9,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 import { ImageUploadService } from 'src/app/services/image-upload.service';
 import { UsersService } from 'src/app/services/users.service';
 
+
 @UntilDestroy()
 @Component({
   selector: 'app-profile',
@@ -25,14 +26,18 @@ export class ProfileComponent implements OnInit {
     lastName: new FormControl(''),
     phone: new FormControl(''),
     address: new FormControl(''),
-  });
+    objective: new FormControl(''),
+    medical_issues: new FormControl(''),
+    photoURL: new FormControl(''),
 
+  });
+  imageURL: string | undefined;
   constructor(
     private authService: AuthenticationService,
     private imageUploadService: ImageUploadService,
     private toast: HotToastService,
-    private usersService: UsersService
-  ) {}
+    private usersService: UsersService,
+  ) { }
 
   ngOnInit(): void {
     this.usersService.currentUserProfile$
@@ -44,7 +49,7 @@ export class ProfileComponent implements OnInit {
 
   uploadImage(event: any, user: ProfileUser) {
     this.imageUploadService
-      .uploadImage(event.target.files[0], `images/profile/${user.uid}`)
+      .uploadImage(event.target.files[0], 'images/profile/${user.uid}')
       .pipe(
         this.toast.observe({
           loading: 'Image is being uploaded...',
@@ -70,5 +75,22 @@ export class ProfileComponent implements OnInit {
         })
       )
       .subscribe();
+  }
+  url = 'assets/images/image-placeholder.png';
+
+  onSelect(event: any) {
+    let fileType = event.target.files[0].type;
+    if (fileType.match(/image\/*/)) {
+      let reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]);
+      reader.onload = (event: any) => {
+        this.url = event.target.result;
+        this.profileForm.value['photoURL'] = event.target.result;
+        
+      };
+    } else {
+      window.alert('Please select correct image format');
+    }
+   
   }
 }

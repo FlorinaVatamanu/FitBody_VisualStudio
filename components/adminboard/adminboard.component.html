@@ -1,6 +1,14 @@
+<link rel="preconnect" href="https://fonts.gstatic.com">
 <link rel="stylesheet" href="https://unpkg.com/primeflex@3.1.2/primeflex.css">
 
-<div class="bg-image">
+
+<!--<div *ngIf="(user | async)?.email =='vero@gmail.com'; else notAdmin" class="desk">
+  <div *ngIf="userProfile?.['email'] =='nutritionist' ; else notNutritionist">-->
+<div class="desk" *ngIf="(afAuth.user | async)?.email =='vero@gmail.com'; else notNutritionist">
+  <div class="margine">Hello Nutritionist, {{email}} !</div>
+  <br />
+  <br />
+  <div class="bg-image">
     <div class="container">
       <div class="row">
         <div class="col-md-4 mt-5">
@@ -75,93 +83,101 @@
         </div>
       </div>
     </div>
-</div>
+  </div>
+  <div class="container2">
+    <div class="row">
+      <div class="col-md-8 mt-2">
+        <div class="card p-3 shadow">
+          <div class="card-body">
+            <h2>Search <b>Meal Plans</b></h2>
+            <div class="margine">
+              <input class="form-control" type="text" name="description" [(ngModel)]="description" (ngModelChange)="Search()"
+                     placeholder="Search for type of meal plan">
+            </div>
+            <table class="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th (click)="sort('description')">
+                    <span class="text-black-400 text-1.7xl font-italic">
+                      <span class="material-icons md-18">sort</span>Description&nbsp;
+                    </span>
+                  </th>
+                  <th><span class="text-black-400 text-1.7xl font-italic">Meal 1</span></th>
+                  <th><span class="text-black-400 text-1.7xl font-italic">Snack 1</span></th>
+                  <th><span class="text-black-400 text-1.7xl font-italic">Meal 2</span></th>
+                  <th><span class="text-black-400 text-1.7xl font-italic">Snack 2</span></th>
+                  <th><span class="text-black-400 text-1.7xl font-italic">Meal 3</span></th>
+                  <th><span class="text-black-400 text-1.7xl font-italic">Snack 3</span></th>
+                  <th (click)="sort('kcals')">
+                    <span class="text-black-400 text-1.7xl font-italic">
+                      <span class="material-icons md-18">sort</span>Kcals&nbsp;
+                    </span>
+                  </th>
+                  <th (click)="sort('proteins')">
+                    <span class="text-black-400 text-1.7xl font-italic">
+                      <span class="material-icons md-18">sort</span>Proteins&nbsp;
+                    </span>
+                  </th>
+                  <th (click)="sort('Carbohydrates')">
+                    <span class="text-black-400 text-1.7xl font-italic">
+                      <span class="material-icons md-18">sort</span>Carbohydrates&nbsp;
+                    </span>
+                  </th>
+                  <th (click)="sort('fats')">
+                    <span class="text-black-400 text-1.7xl font-italic">
+                      <span class="material-icons md-18">sort</span>Fats&nbsp;
+                    </span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let meal of mealPlansList | orderBy: key: reverse ">
+                  <td><span class="text-black-400 text-1.7xl font-italic">{{meal.description}}</span></td>
+                  <td><span class="text-black-400 text-1.7xl font-italic">{{meal.meal_1}}</span></td>
+                  <td><span class="text-black-400 text-1.7xl font-italic">{{meal.snack_1}}</span></td>
+                  <td><span class="text-black-400 text-1.7xl font-italic">{{meal.meal_2}}</span></td>
+                  <td><span class="text-black-400 text-1.7xl font-italic">{{meal.snack_2}}</span></td>
+                  <td><span class="text-black-400 text-1.7xl font-italic">{{meal.meal_3}}</span></td>
+                  <td><span class="text-black-400 text-1.7xl font-italic">{{meal.snack_3}}</span></td>
+                  <td><span class="text-black-400 text-1.7xl font-italic">{{meal.kcals}}</span></td>
+                  <td><span class="text-black-400 text-1.7xl font-italic">{{meal.proteins}}</span></td>
+                  <td><span class="text-black-400 text-1.7xl font-italic">{{meal.carbohydrates}}</span></td>
+                  <td><span class="text-black-400 text-1.7xl font-italic">{{meal.fats}}</span></td>
+                  <td>
+                    <button (click)="deleteMealPlan(meal)">
+                      <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+                    </button>
+                  </td>
+                  <td>
+                    <button (click)="updateMealPlan(meal)">
+                      <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+                    </button>
+                  </td>
+                  <td>
+                    <button class="btn btn-success btn-block" (click)="convert(meal)">Download PDF</button>
+                  </td>
+                </tr>
+              </tbody>
 
-<div class="container2">
-
-
-
-  <div class="row">
-    <div class="col-md-8 mt-2">
-      <div class="card p-3 shadow">
-        <div class="card-body">
-          <h2>Search <b>Meal Plans</b></h2>
-          <div class="margine">
-            <input class="form-control" type="text" name="description" [(ngModel)]="description" (ngModelChange)="Search()"
-                   placeholder="Search for type of meal plan">
+            </table>
           </div>
-          <table class="table table-striped table-hover">
-            <thead>
-              <tr>
-                <th (click)="sort('description')">
-                  <span class="text-black-400 text-1.7xl font-italic">
-                    <span class="material-icons md-18">sort</span>Description&nbsp;
-                  </span>
-                </th>
-                <th><span class="text-black-400 text-1.7xl font-italic">Meal 1</span></th>
-                <th><span class="text-black-400 text-1.7xl font-italic">Snack 1</span></th>
-                <th><span class="text-black-400 text-1.7xl font-italic">Meal 2</span></th>
-                <th><span class="text-black-400 text-1.7xl font-italic">Snack 2</span></th>
-                <th><span class="text-black-400 text-1.7xl font-italic">Meal 3</span></th>
-                <th><span class="text-black-400 text-1.7xl font-italic">Snack 3</span></th>
-                <th (click)="sort('kcals')">
-                  <span class="text-black-400 text-1.7xl font-italic">
-                    <span class="material-icons md-18">sort</span>Kcals&nbsp;
-                  </span>
-                </th>
-                <th (click)="sort('proteins')">
-                  <span class="text-black-400 text-1.7xl font-italic">
-                    <span class="material-icons md-18">sort</span>Proteins&nbsp;
-                  </span>
-                </th>
-                <th (click)="sort('Carbohydrates')">
-                  <span class="text-black-400 text-1.7xl font-italic">
-                    <span class="material-icons md-18">sort</span>Carbohydrates&nbsp;
-                  </span>
-                </th>
-                <th (click)="sort('fats')">
-                  <span class="text-black-400 text-1.7xl font-italic">
-                    <span class="material-icons md-18">sort</span>Fats&nbsp;
-                  </span>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let meal of mealPlansList | orderBy: key: reverse ">
-                <td><span class="text-black-400 text-1.7xl font-italic">{{meal.description}}</span></td>
-                <td><span class="text-black-400 text-1.7xl font-italic">{{meal.meal_1}}</span></td>
-                <td><span class="text-black-400 text-1.7xl font-italic">{{meal.snack_1}}</span></td>
-                <td><span class="text-black-400 text-1.7xl font-italic">{{meal.meal_2}}</span></td>
-                <td><span class="text-black-400 text-1.7xl font-italic">{{meal.snack_2}}</span></td>
-                <td><span class="text-black-400 text-1.7xl font-italic">{{meal.meal_3}}</span></td>
-                <td><span class="text-black-400 text-1.7xl font-italic">{{meal.snack_3}}</span></td>
-                <td><span class="text-black-400 text-1.7xl font-italic">{{meal.kcals}}</span></td>
-                <td><span class="text-black-400 text-1.7xl font-italic">{{meal.proteins}}</span></td>
-                <td><span class="text-black-400 text-1.7xl font-italic">{{meal.carbohydrates}}</span></td>
-                <td><span class="text-black-400 text-1.7xl font-italic">{{meal.fats}}</span></td>
-                <td>
-                  <button (click)="deleteMealPlan(meal)">
-                    <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
-                  </button>
-                </td>
-                <td>
-                  <button (click)="updateMealPlan(meal)">
-                    <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
-                  </button>
-                </td>
-                <td>
-                  <button class="btn btn-success btn-block" (click)="convert(meal)">Download PDF</button>
-                </td>
-              </tr>
-            </tbody>
-
-          </table>
         </div>
       </div>
     </div>
   </div>
+  <div>
+    <app-footer></app-footer>
+  </div>
 </div>
 
-<div>
-  <app-footer></app-footer>
-</div>
+<ng-template #notNutritionist>
+  <mat-card>
+    <mat-icon>do_not_disturb</mat-icon>
+    <span>Permission denied. You are not a nutritionist.</span>
+    <br /><br />
+    <button mat-raised-button class="purple" routerLink="/dashboard">
+      <mat-icon>home</mat-icon>
+      <span>Return Dashboard</span>
+    </button>
+  </mat-card>
+</ng-template>
