@@ -13,6 +13,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatListModule } from '@angular/material/list';
+import { MatCardModule } from '@angular/material/card';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { } from '@angular/material/form-field';
 import { } from '@angular/material/input';
 import { MatDividerModule } from '@angular/material/divider';
@@ -27,6 +29,9 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { TrackerComponent } from './components/tracker/tracker.component';
 import { AdminboardComponent } from './components/adminboard/adminboard.component';
+import { BmrComponent } from './components/bmr/bmr.component';
+import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';
@@ -67,6 +72,9 @@ import { Ng2OrderModule } from 'ng2-order-pipe';
     FooterComponent,
     TrackerComponent,
     AdminboardComponent,
+    BmrComponent,
+    VerifyEmailComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
     BrowserModule,
@@ -92,6 +100,8 @@ import { Ng2OrderModule } from 'ng2-order-pipe';
     MatAutocompleteModule,
     MatDividerModule,
     MatIconModule,
+    MatCardModule,
+    MatProgressSpinnerModule,
     ChartModule,
     ButtonModule,
     RippleModule,

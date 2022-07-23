@@ -7,6 +7,9 @@ import { HomeComponent } from './components/home/home.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { TrackerComponent } from './components/tracker/tracker.component';
 import { AdminboardComponent } from './components/adminboard/adminboard.component';
+import { BmrComponent } from './components/bmr/bmr.component';
+import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 
 import {
   canActivate,
@@ -57,6 +60,21 @@ const routes: Routes = [
   {
     path: 'adminboard',
     component: AdminboardComponent,
+    ...canActivate(redirectToLogin),
+  },
+  {
+    path: 'bmr',
+    component: BmrComponent,
+    ...canActivate(redirectToLogin),
+  },
+  {
+    path: 'verify-email',
+    component: VerifyEmailComponent,
+    ...canActivate(redirectToLogin),
+  },
+  {
+    path: 'forgot-password',
+    component: ForgotPasswordComponent,
     ...canActivate(redirectToLogin),
   },
 ];
